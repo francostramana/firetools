@@ -1,0 +1,22 @@
+{
+  "name": "firetool",
+  "version": "1.0.0",
+  "description": "Cli Admin Tools for Firebase Projects",
+  "main": "firetool.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "firebase",
+    "admin",
+    "tools"
+  ],
+  "author": "Franco Stramana",
+  "license": "ISC",
+  "dependencies": {
+    "cli-table": "^0.3.1",
+    "commander": "^2.19.0",
+    "firebase-admin": "^7.0.0",
+    "inquirer": "^6.2.2"
+  }
+}
