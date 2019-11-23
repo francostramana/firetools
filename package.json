@@ -17,6 +17,6 @@
     "cli-table": "^0.3.1",
     "commander": "^4.0.1",
     "firebase-admin": "^7.0.0",
-    "inquirer": "^6.2.2"
+    "inquirer": "^6.5.2"
   }
 }

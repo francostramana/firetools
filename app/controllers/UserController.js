@@ -1,5 +1,8 @@
+"use strict";
+
 const admin = require("firebase-admin");
 const view = require('../views/UserView');
+const inquirer = require("inquirer");
 
 
 //const serviceAccount = require("./cuthill-digital-firebase-adminsdk-3juik-c6920cf51a.json");
@@ -49,7 +52,12 @@ function update(uid, options) {
         .then(e => process.exit(1));
 }
 
-function remove(uid) {
+async function remove(uid) {
+
+    let answers = await inquirer.prompt([ { type: 'confirm', name: 'confirm', message: 'Are you sure you want to delete this user?', default: true }]);
+    
+    if (!answers.confirm) process.exit(1);
+
     admin.auth().deleteUser(uid)
         .then(() => {
             console.log('Successfully deleted user');
