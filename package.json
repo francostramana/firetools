@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "Cli Admin Tools for Firebase Projects",
   "main": "firetool.js",
+  "preferGlobal": true,
+  "bin": "./firetool.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
