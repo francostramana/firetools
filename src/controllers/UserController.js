@@ -37,7 +37,7 @@ function create(options) {
           console.log('Successfully created new user:', userRecord.uid);
         })
         .catch(function(error) {
-          console.log('Error creating new user:', error.errorInfo);
+          console.log('Error creating new user:', error.errorInfo || error);
         })
         .finally(e => process.exit(1));
 }
@@ -50,7 +50,7 @@ function update(uid, options) {
             console.log("Successfully updated user", userRecord.toJSON());
         })
         .catch(error => {
-            console.log("Error updating user:",  error.errorInfo);
+            console.log("Error updating user:", error.errorInfo || error);
         })
         .then(e => process.exit(1));
 }
@@ -66,7 +66,7 @@ async function remove(uid) {
             console.log('Successfully deleted user');
         })
         .catch(error => {
-            console.log('Error deleting user:',  error.errorInfo);
+            console.log('Error deleting user:', error.errorInfo || error);
         })
         .finally(e => process.exit(1));
 }
@@ -90,7 +90,7 @@ function _listUser(uid) {
             view.printUsers([userRecord]);
         })
         .catch(error =>  {
-            console.log("Error fetching user data:", error.errorInfo);
+            console.log("Error fetching user data:", error.errorInfo || error);
         })
         .finally(e => process.exit(1));
 }
