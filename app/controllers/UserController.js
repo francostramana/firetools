@@ -22,8 +22,46 @@ function list(uid) {
         _listAllUsers();
 }
 
+function create(options) {
+    let properties = _getUserPropertiesFromOptions(options);
+
+    admin.auth().createUser(properties)
+        .then(function(userRecord) {
+          // See the UserRecord reference doc for the contents of userRecord.
+          console.log('Successfully created new user:', userRecord.uid);
+        })
+        .catch(function(error) {
+          console.log('Error creating new user:', error.errorInfo);
+        })
+        .finally(e => process.exit(1));
+}
+
 function update(uid, options) {
-    let properties = {
+    let properties = _getUserPropertiesFromOptions(options);
+
+    admin.auth().updateUser(uid, properties)
+        .then(userRecord => {
+            console.log("Successfully updated user", userRecord.toJSON());
+        })
+        .catch(error => {
+            console.log("Error updating user:",  error.errorInfo);
+        })
+        .then(e => process.exit(1));
+}
+
+function remove(uid) {
+    admin.auth().deleteUser(uid)
+        .then(() => {
+            console.log('Successfully deleted user');
+        })
+        .catch(error => {
+            console.log('Error deleting user:',  error.errorInfo);
+        })
+        .finally(e => process.exit(1));
+}
+
+function _getUserPropertiesFromOptions(options) {
+    return {
         ...(options.email           && {email: options.email}),
         ...(options.emailVerified   && {emailVerified: options.emailVerified}),
         ...(options.phoneNumber     && {phoneNumber: options.phoneNumber}),
@@ -32,65 +70,44 @@ function update(uid, options) {
         ...(options.photoURL        && {photoURL: options.photoURL}),
         ...(options.disabled        && {disabled: options.disabled}),
     };
-
     // FIXME: some properties can be null!
-    
-    _updateUser(uid, properties);
-}
-
-function remove(uid) {
-    admin.auth().deleteUser(uid)
-        .then(function() {
-            console.log('Successfully deleted user');
-        })
-        .catch(function(error) {
-            console.log('Error deleting user:', error);
-        });
 }
 
 function _listUser(uid) {
     admin.auth().getUser(uid)
-        .then(function(userRecord) {
+        .then(userRecord =>  {
             view.printUsers([userRecord]);
         })
-        .catch(function(error) {
-            console.log("Error fetching user data:", error);
-        });
+        .catch(error =>  {
+            console.log("Error fetching user data:", error.errorInfo);
+        })
+        .finally(e => process.exit(1));
 }
 
 function _listAllUsers(nextPageToken) {
     // List batch of users, 1000 at a time.
     admin.auth().listUsers(1000, nextPageToken)
-        .then(function(listUsersResult) {
+        .then(listUsersResult => {
 
             if (listUsersResult.users.length)
                 view.printUsers(listUsersResult.users);
-
+            
             if (listUsersResult.pageToken) {
                 // List next batch of users.
-                listAllUsers(listUsersResult.pageToken);
+                _listAllUsers(listUsersResult.pageToken);
             }
         })
-        .catch(function(error) {
-            console.log("Error listing users:", error);
-        });
-}
-
-function _updateUser(uid, properties) {
-    admin.auth().updateUser(uid, properties)
-    .then(function(userRecord) {
-        // See the UserRecord reference doc for the contents of userRecord.
-        console.log("Successfully updated user", userRecord.toJSON());
-    })
-    .catch(function(error) {
-        console.log("Error updating user:", error);
-    });
+        .catch(error =>  {
+            console.log("Error listing users:",  error.errorInfo || error);
+        })
+        .finally(e => process.exit(1));
 }
 
 
-// Export all methods
+// Export all public methods
 module.exports = {
     list, 
+    create,
     update, 
     remove
 };

@@ -7,7 +7,7 @@ function printUsers(users) {
 
     users.forEach( userRecord =>  table.push([
         userRecord.uid,
-        userRecord.email,
+        userRecord.email || "",
         userRecord.displayName || "",
         userRecord.emailVerified,
         userRecord.disabled
