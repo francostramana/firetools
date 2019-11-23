@@ -3,14 +3,17 @@
 const admin = require("firebase-admin");
 const view = require('../views/UserView');
 const inquirer = require("inquirer");
+const environment = require('../environment');
+
+const Conf = require('conf'); 
+const config = new Conf();
 
 
-//const serviceAccount = require("./cuthill-digital-firebase-adminsdk-3juik-c6920cf51a.json");
-//onst serviceAccount = require("../../config/cuthill-beta-firebase-adminsdk-8qiim-b94471293d.json");
+const serviceAccount = require(config.get(environment.KEY_CREDENTIAL_PATH));
 
 admin.initializeApp({
-    credential: admin.credential.applicationDefault(),
-    databaseURL: "https://cuthill-digital-dev.firebaseio.com"
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: `https://${config.get(environment.KEY_APLICATION_NAME)}.firebaseio.com`
 });
 
 /**

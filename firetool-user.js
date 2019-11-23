@@ -1,6 +1,6 @@
 
 const program = require('commander');
-const auth = require('./app/controllers/UserController');
+const auth = require('./src/controllers/UserController');
 
 program
     .command('list [uid]')
