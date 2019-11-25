@@ -1,8 +1,8 @@
 "use strict";
 
 const admin = require("firebase-admin");
-const view = require('../views/UserView');
 const inquirer = require("inquirer");
+const view = require('../views/auth.view');
 const environment = require('../environment');
 
 const Conf = require('conf'); 
