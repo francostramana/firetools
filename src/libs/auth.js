@@ -5,10 +5,8 @@ const inquirer = require("inquirer");
 const view = require('../views/auth.view');
 const init = require('../libs/init');
 
-
 /* pre-hook */
 init.initializeApp();
-
 
 const list = (uid) => {
     if (uid)
@@ -76,7 +74,7 @@ const _getUserPropertiesFromOptions = (options) => {
 const _listUser = (uid) => {
     admin.auth().getUser(uid)
         .then(userRecord =>  {
-            view.printUsers([userRecord]);
+            console.log(userRecord.toJSON());
         })
         .catch(error =>  {
             console.log("Error fetching user data:", error.errorInfo || error);
@@ -102,7 +100,6 @@ const _listAllUsers = (nextPageToken) => {
         })
         .finally(e => process.exit(1));
 }
-
 
 // Export all public methods
 module.exports = {
