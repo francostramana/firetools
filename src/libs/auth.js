@@ -66,7 +66,7 @@ const _getUserPropertiesFromOptions = (options) => {
         ...(options.password        && {password: options.password}),
         ...(options.displayName     && {displayName: options.displayName}),
         ...(options.photoURL        && {photoURL: options.photoURL}),
-        ...(options.disabled        && {disabled: options.disabled == "true"}),
+        ...(options.disabled        && {disabled: options.disabled == "true" || options.disabled == true}),
     };
     // FIXME: some properties can be null!
 }
