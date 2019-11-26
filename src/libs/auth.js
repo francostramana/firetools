@@ -3,16 +3,12 @@
 const admin = require("firebase-admin");
 const inquirer = require("inquirer");
 const view = require('../views/auth.view');
+const init = require('../libs/init');
 
-const config = require('./config'); 
 
+/* pre-hook */
+init.initializeApp();
 
-const serviceAccount = require(config.store.get(config.preferences.KEY_CREDENTIAL_PATH));
-
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: `https://${config.store.get(config.preferences.KEY_APLICATION_NAME)}.firebaseio.com`
-});
 
 /**
  * List user from Authorization. If pass a UID only list one.
