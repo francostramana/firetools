@@ -10,19 +10,14 @@ const init = require('../libs/init');
 init.initializeApp();
 
 
-/**
- * List user from Authorization. If pass a UID only list one.
- * 
- * @param {string} uid 
- */
-function list(uid) {
+const list = (uid) => {
     if (uid)
         _listUser(uid);
     else
         _listAllUsers();
 }
 
-function create(options) {
+const create = (options) => {
     let properties = _getUserPropertiesFromOptions(options);
 
     admin.auth().createUser(properties)
@@ -36,7 +31,7 @@ function create(options) {
         .finally(e => process.exit(1));
 }
 
-function update(uid, options) {
+const update = (uid, options) => {
     let properties = _getUserPropertiesFromOptions(options);
 
     admin.auth().updateUser(uid, properties)
@@ -49,7 +44,7 @@ function update(uid, options) {
         .then(e => process.exit(1));
 }
 
-async function remove(uid) {
+const remove = async (uid) => {
 
     let answers = await inquirer.prompt([ { type: 'confirm', name: 'confirm', message: 'Are you sure you want to delete this user?', default: true }]);
     
@@ -65,7 +60,7 @@ async function remove(uid) {
         .finally(e => process.exit(1));
 }
 
-function _getUserPropertiesFromOptions(options) {
+const _getUserPropertiesFromOptions = (options) => {
     return {
         ...(options.email           && {email: options.email}),
         ...(options.emailVerified   && {emailVerified: options.emailVerified}),
@@ -78,7 +73,7 @@ function _getUserPropertiesFromOptions(options) {
     // FIXME: some properties can be null!
 }
 
-function _listUser(uid) {
+const _listUser = (uid) => {
     admin.auth().getUser(uid)
         .then(userRecord =>  {
             view.printUsers([userRecord]);
@@ -89,7 +84,7 @@ function _listUser(uid) {
         .finally(e => process.exit(1));
 }
 
-function _listAllUsers(nextPageToken) {
+const _listAllUsers = (nextPageToken) => {
     // List batch of users, 1000 at a time.
     admin.auth().listUsers(1000, nextPageToken)
         .then(listUsersResult => {
