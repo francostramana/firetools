@@ -3,7 +3,6 @@
 const program = require('commander');
 const init = require('../libs/init');
 
-
 program
   .action(() => init.init());
 

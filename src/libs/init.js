@@ -20,8 +20,6 @@ const CREDENTIAL_PATH_QUESTION = {
 };
 
 const init = async () => {
-  console.log("hoila");
-
     let answers = await inquirer.prompt([DATABASE_NAME_QUESTION, CREDENTIAL_PATH_QUESTION]);
 
     config.store.set(config.preferences.KEY_APLICATION_NAME, answers.databaseName);

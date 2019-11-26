@@ -47,7 +47,6 @@ program
 
     .action( (uid) => auth.remove(uid));
  
-
 program
     .command('validate-email <uid>')
     .alias('v')
