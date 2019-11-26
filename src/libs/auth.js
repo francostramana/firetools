@@ -3,17 +3,15 @@
 const admin = require("firebase-admin");
 const inquirer = require("inquirer");
 const view = require('../views/auth.view');
-const environment = require('../environment');
 
-const Conf = require('conf'); 
-const config = new Conf();
+const config = require('./config'); 
 
 
-const serviceAccount = require(config.get(environment.KEY_CREDENTIAL_PATH));
+const serviceAccount = require(config.store.get(config.preferences.KEY_CREDENTIAL_PATH));
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: `https://${config.get(environment.KEY_APLICATION_NAME)}.firebaseio.com`
+    databaseURL: `https://${config.store.get(config.preferences.KEY_APLICATION_NAME)}.firebaseio.com`
 });
 
 /**

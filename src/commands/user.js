@@ -1,6 +1,7 @@
+"use strict";
 
 const program = require('commander');
-const auth = require('./src/libs/auth');
+const auth = require('../libs/auth');
 
 program
     .command('list [uid]')
