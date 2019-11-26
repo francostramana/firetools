@@ -61,12 +61,12 @@ const remove = async (uid) => {
 const _getUserPropertiesFromOptions = (options) => {
     return {
         ...(options.email           && {email: options.email}),
-        ...(options.emailVerified   && {emailVerified: options.emailVerified}),
+        ...(options.emailVerified   && {emailVerified: options.emailVerified == "true" || options.emailVerified == true}),
         ...(options.phoneNumber     && {phoneNumber: options.phoneNumber}),
         ...(options.password        && {password: options.password}),
         ...(options.displayName     && {displayName: options.displayName}),
         ...(options.photoURL        && {photoURL: options.photoURL}),
-        ...(options.disabled        && {disabled: options.disabled}),
+        ...(options.disabled        && {disabled: options.disabled == "true"}),
     };
     // FIXME: some properties can be null!
 }

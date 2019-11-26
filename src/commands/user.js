@@ -15,13 +15,13 @@ program
     .alias('c')
     .description('Create a new Firebase Authentication user.')
 
-    .option('-e, --email [value]', 'Email for the user')
-    .option('-p, --password [value]', 'Password for the user')
-    .option('-d, --displayName [value]', 'Display name for the user')
+    .option('-e, --email <value>', 'Email for the user')
+    .option('-p, --password <value>', 'Password for the user')
+    .option('-d, --displayName <value>', 'Display name for the user')
     .option('--emailVerified [boolean]', 'Email verified for the user')
     .option('---disabled [boolean]', 'Disabled for the user')
-    .option('--photoURL [value]', 'Photo url for the user')
-    .option('--phoneNumber [value]', 'Phone number for the user')
+    .option('--photoURL <value>', 'Photo url for the user')
+    .option('--phoneNumber <value>', 'Phone number for the user')
 
     .action( (options) => auth.create(options) );
 
@@ -30,13 +30,13 @@ program
     .alias('u')
     .description('Updates an existing user by their uid.')
     
-    .option('-e, --email [value]', 'New email for the user')
-    .option('-p, --password [value]', 'New password for the user')
-    .option('-d, --displayName [value]', 'New display name for the user')
+    .option('-e, --email <value>', 'New email for the user')
+    .option('-p, --password <value>', 'New password for the user')
+    .option('-d, --displayName <value>', 'New display name for the user')
     .option('--emailVerified [boolean]', 'Set email verified for the user')
     .option('--disabled [boolean]', 'Set disabled for the user')
-    .option('--photoURL [value]', 'New photo url for the user')
-    .option('--phoneNumber [value]', 'New phone number for the user')
+    .option('--photoURL <value>', 'New photo url for the user')
+    .option('--phoneNumber <value>', 'New phone number for the user')
 
     .action( (uid, options) => auth.update(uid, options) );
 
