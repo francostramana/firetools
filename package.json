@@ -1,6 +1,6 @@
 {
   "name": "firetool",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "CLI Admin Tools for Firebase Projects",
   "main": "firetool.js",
   "preferGlobal": true,
