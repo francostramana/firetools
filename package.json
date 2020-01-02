@@ -1,6 +1,6 @@
 {
   "name": "firetool",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "CLI Admin Tools for Firebase Projects",
   "main": "firetool.js",
   "preferGlobal": true,
@@ -23,5 +23,9 @@
     "conf": "^6.2.0",
     "firebase-admin": "^7.0.0",
     "inquirer": "^6.5.2"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/francostramana/firetools"
   }
 }
