@@ -23,5 +23,9 @@
     "conf": "^6.2.0",
     "firebase-admin": "^7.0.0",
     "inquirer": "^6.5.2"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/francostramana/firetools"
   }
 }
