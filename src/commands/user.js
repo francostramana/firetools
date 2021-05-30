@@ -46,6 +46,15 @@ program
     .description('Delete a existing user by their uid')
 
     .action( (uid) => auth.remove(uid));
+
+program
+    .command('claims <uid>')
+    .description('Configuring custom claims to existing user')
+
+    .option('-s, --set <value>', 'Set custom claims for the user. Ex: --set admin=true,group=editors')
+    .option('-r, --removeAll', 'Remove custom claims for the user')
+
+    .action( (uid, options) => auth.setUserClaims(uid, options));
  
 program
     .command('validate-email <uid>')
