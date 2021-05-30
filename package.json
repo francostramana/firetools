@@ -6,7 +6,7 @@
   "preferGlobal": true,
   "bin": "./src/bin/firetool.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha src/test"
   },
   "keywords": [
     "firebase",
@@ -27,5 +27,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/francostramana/firetools"
+  },
+  "devDependencies": {
+    "mocha": "^8.4.0"
   }
 }
