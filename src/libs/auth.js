@@ -19,12 +19,12 @@ const create = (options) => {
     let properties = _getUserPropertiesFromOptions(options);
 
     admin.auth().createUser(properties)
-        .then(function(userRecord) {
-          // See the UserRecord reference doc for the contents of userRecord.
-          console.log('Successfully created new user:', userRecord.uid);
+        .then(function (userRecord) {
+            // See the UserRecord reference doc for the contents of userRecord.
+            console.log('Successfully created new user:', userRecord.uid);
         })
-        .catch(function(error) {
-          console.log('Error creating new user:', error.errorInfo || error);
+        .catch(function (error) {
+            console.log('Error creating new user:', error.errorInfo || error);
         })
         .finally(e => process.exit(1));
 }
@@ -44,8 +44,8 @@ const update = (uid, options) => {
 
 const remove = async (uid) => {
 
-    let answers = await inquirer.prompt([ { type: 'confirm', name: 'confirm', message: 'Are you sure you want to delete this user?', default: true }]);
-    
+    let answers = await inquirer.prompt([{ type: 'confirm', name: 'confirm', message: 'Are you sure you want to delete this user?', default: true }]);
+
     if (!answers.confirm) process.exit(1);
 
     admin.auth().deleteUser(uid)
@@ -58,25 +58,59 @@ const remove = async (uid) => {
         .finally(e => process.exit(1));
 }
 
+const setUserClaims = async (uid, options) => {
+    try {
+
+        if (!options.set && !options.removeAll)
+         return console.log('Not options defined');
+        
+         let claims = null;
+         
+        if (options.set)
+            claims = options.set 
+                .split(',')
+                .map(claim => claim.split('='))
+                .map(([key, value]) => ([key.trim(), value.trim()]))
+                .map(([key, value]) => ([key, value === 'true' ? true : value]))
+                .reduce((acc, [key, value]) => ({...acc, [key]: value}), {});
+
+                  
+        if (options.removeAll)
+            claims = null; 
+
+        console.log('Settings claims', claims);
+
+        await admin
+        .auth()
+        .setCustomUserClaims(uid, claims);
+
+        console.log('Successfully claims config');
+    } catch(error) {
+        console.log('Error setting claims:', error.errorInfo || error);
+    } finally {
+        process.exit(1);
+    } 
+}
+
 const _getUserPropertiesFromOptions = (options) => {
     return {
-        ...(options.email           && {email: options.email}),
-        ...(options.emailVerified   && {emailVerified: options.emailVerified == "true" || options.emailVerified == true}),
-        ...(options.phoneNumber     && {phoneNumber: options.phoneNumber}),
-        ...(options.password        && {password: options.password}),
-        ...(options.displayName     && {displayName: options.displayName}),
-        ...(options.photoURL        && {photoURL: options.photoURL}),
-        ...(options.disabled        && {disabled: options.disabled == "true" || options.disabled == true}),
+        ...(options.email && { email: options.email }),
+        ...(options.emailVerified && { emailVerified: options.emailVerified == "true" || options.emailVerified == true }),
+        ...(options.phoneNumber && { phoneNumber: options.phoneNumber }),
+        ...(options.password && { password: options.password }),
+        ...(options.displayName && { displayName: options.displayName }),
+        ...(options.photoURL && { photoURL: options.photoURL }),
+        ...(options.disabled && { disabled: options.disabled == "true" || options.disabled == true }),
     };
     // FIXME: some properties can be null!
 }
 
 const _listUser = (uid) => {
     admin.auth().getUser(uid)
-        .then(userRecord =>  {
+        .then(userRecord => {
             console.log(userRecord.toJSON());
         })
-        .catch(error =>  {
+        .catch(error => {
             console.log("Error fetching user data:", error.errorInfo || error);
         })
         .finally(e => process.exit(1));
@@ -89,22 +123,23 @@ const _listAllUsers = (nextPageToken) => {
 
             if (listUsersResult.users.length)
                 view.printUsers(listUsersResult.users);
-            
+
             if (listUsersResult.pageToken) {
                 // List next batch of users.
                 _listAllUsers(listUsersResult.pageToken);
             }
         })
-        .catch(error =>  {
-            console.log("Error listing users:",  error.errorInfo || error);
+        .catch(error => {
+            console.log("Error listing users:", error.errorInfo || error);
         })
         .finally(e => process.exit(1));
 }
 
 // Export all public methods
 module.exports = {
-    list, 
+    list,
     create,
-    update, 
-    remove
+    update,
+    remove,
+    setUserClaims
 };
