@@ -49,7 +49,7 @@ program
 
 program
     .command('claims <uid>')
-    .description('Configuring custom claims to existing user')
+    .description('Configure custom claims to existing user')
 
     .option('-s, --set <value>', 'Set custom claims for the user. Ex: --set admin=true,group=editors')
     .option('-r, --removeAll', 'Remove custom claims for the user')

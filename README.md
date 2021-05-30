@@ -63,6 +63,7 @@ This commands allow you to managing your Firebase Authentication users with elev
 | user update [options] \<uid\> | Updates an existing user by their uid.                                             |
 | user delete \<uid\>           | Delete a existing user by their uid.                                               |
 | user validate-email \<uid\>   | Validates email to existing user. Shorthand to user update \<uid\> --emailVerified.|
+| user claims \<uid\> [options] | Configure custom claims to existing user.                                          |
 
 `[options]` params are the same properties provides by the API for managing Firebase Authentication. See https://firebase.google.com/docs/auth/admin/manage-users.
 
@@ -71,6 +72,10 @@ For example:
 - `firetool user update --emailVerified jcIT3i4hFNSqmgxABFxH1sVxc1M2` validate user email.
 - `firetool user update --displayName "Franco Stramana" jcIT3i4hFNSqmgxABFxH1sVxc1M2` change the display name for the user.
 - `firetool user update --password 123456 --disabled false jcIT3i4hFNSqmgxABFxH1sVxc1M2` enabled user and change their password.
+
+**Claims**
+- `firetool user claims jcIT3i4hFNSqmgxABFxH1sVxc1M2 --set admin=true` set admin token custom claims.
+- `firetool user claims jcIT3i4hFNSqmgxABFxH1sVxc1M2 --removeAll` remove all custom claims.
 
 
 ## Contributions
