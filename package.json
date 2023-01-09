@@ -21,7 +21,7 @@
     "cli-table": "^0.3.6",
     "commander": "^4.1.1",
     "conf": "^6.2.4",
-    "firebase-admin": "^9.8.0",
+    "firebase-admin": "^11.4.1",
     "inquirer": "^6.5.2"
   },
   "repository": {
